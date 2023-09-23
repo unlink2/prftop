@@ -1,5 +1,7 @@
 # prf
 
+A performance measuring tool 
+
 ## Table of content
 
 - [Installation](#Installation)
@@ -19,7 +21,6 @@ make # to compile all targets
 
 ## Usage
 
-1) Rename `prf` to the project's name in all files and folders 
 
 ## License
 
