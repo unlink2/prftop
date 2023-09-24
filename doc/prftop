@@ -22,7 +22,8 @@
     Define end tag
   
 .SH EXAMPLES
- 
+  echo "prftop-start: tag1\nprftop-en\n" | prftop
+
 .SH SEE ALSO
 
 .SH BUGS
