@@ -36,7 +36,7 @@ int prf_time(struct prf_config *cfg, const char *tag, int depth) {
     }
   }
 
-  fprintf(cfg->out, "%d:%s\tfinished in %lf ms\n", depth, tag,
+  fprintf(cfg->out, "%d:%s\tfinished in %.32lf ms\n", depth, tag,
           prf_timediff(start_time, prf_utime()));
 
   return 0;
