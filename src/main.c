@@ -7,13 +7,15 @@
 struct arg_lit *verb = NULL;
 struct arg_lit *help = NULL;
 struct arg_lit *version = NULL;
+struct arg_lit *noecho = NULL;
+struct arg_str *start_tag = NULL;
+struct arg_str *end_tag = NULL;
 
 // arg end stores errors
 struct arg_end *end = NULL;
 
-#define prf_argtable                                                          \
-  { help, version, verb, end, }
-
+#define prf_argtable                                                           \
+  { help, version, verb, start_tag, end_tag, noecho, end, }
 
 void prf_args_free(void) {
   void *argtable[] = prf_argtable;
@@ -24,12 +26,15 @@ void prf_args_parse(int argc, char **argv) {
   help = arg_litn(NULL, "help", 0, 1, "display this help and exit");
   version = arg_litn(NULL, "version", 0, 1, "display version info and exit");
   verb = arg_litn("v", "verbose", 0, 1, "verbose output");
+  start_tag = arg_str0("s", "start", 0, "Define start tag");
+  end_tag = arg_str0("e", "end", 0, "Define end tag");
+  noecho = arg_lit0(NULL, "noecho", "Disable echo");
   end = arg_end(20);
 
   void *argtable[] = prf_argtable;
 
   // output params
-  char progname[] = "prf";
+  char progname[] = "prfmon";
   char short_desc[] = "";
 
   // version info
@@ -66,16 +71,30 @@ exit:
   exit(exitcode); // NOLINT
 }
 
-
-
 int main(int argc, char **argv) {
   prf_args_parse(argc, argv);
-  
-  // map args to cfg here 
+
+  // map args to cfg here
   struct prf_config cfg;
   memset(&cfg, 0, sizeof(cfg));
 
   cfg.verbose = verb->count > 0;
+
+  if (start_tag->count) {
+    cfg.start_tag = start_tag->sval[0];
+  } else {
+    cfg.start_tag = PRF_START_TAG;
+  }
+
+  if (end_tag->count) {
+    cfg.end_tag = end_tag->sval[0];
+  } else {
+    cfg.end_tag = PRF_END_TAG;
+  }
+
+  cfg.in = stdin;
+  cfg.out = stdout;
+  cfg.echo = !noecho->count;
 
   int res = prf_main(&cfg);
 

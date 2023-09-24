@@ -1,4 +1,4 @@
 #!/bin/bash
 
-premake5 gmake && make && ./bin/Debug/testprf
+premake5 gmake && make && ./bin/Debug/testprfmon
 
