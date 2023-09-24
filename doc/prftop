@@ -8,7 +8,11 @@
 .SH SYNOPSIS
   prftop [-v] [--help] [--version] [-s <string>] [-e <string>]
 .SH DESCRIPTION
-  prftop
+  prftop is a simple time measurement tool.
+  It measures the exeuction time of a process.
+  Without any modification it will simply measure the entire exection time.
+  If the process outputs "prftop-start: <tag>" and "prftop-end" it will also recursively
+  measure the times between those two outputs. 
 
   --help                    
     display this help and exit
