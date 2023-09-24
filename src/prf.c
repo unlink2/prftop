@@ -2,21 +2,29 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/time.h>
+#include <time.h>
 
 #define PRF_BUF_LEN 256
 
-long prf_utime(void) {
-  struct timeval time;
-  gettimeofday(&time, NULL);
-  long s1 = (long)(time.tv_sec) * 1000;
-  long s2 = (time.tv_usec / 1000);
-  return s1 + s2;
+struct timespec prf_utime(void) {
+  struct timespec time;
+  clock_gettime(CLOCK_MONOTONIC, &time);
+
+  return time;
+}
+
+double prf_timediff(struct timespec start, struct timespec end) {
+  double time_taken = 0;
+  time_taken = (double)(end.tv_sec - start.tv_sec) * 1e9;
+  time_taken = (time_taken + (double)(end.tv_nsec - start.tv_nsec)) * 1e-9;
+
+  return time_taken;
 }
 
 int prf_time(struct prf_config *cfg, const char *tag, int depth) {
   char buf[PRF_BUF_LEN];
 
-  long start_time = prf_utime();
+  struct timespec start_time = prf_utime();
 
   while (fgets(buf, PRF_BUF_LEN, cfg->in)) {
     if (strncmp(cfg->start_tag, buf, cfg->start_tag_len) == 0) {
@@ -27,8 +35,9 @@ int prf_time(struct prf_config *cfg, const char *tag, int depth) {
       fputs(buf, cfg->out);
     }
   }
-  fprintf(cfg->out, "%d:%s\tfinished in %ld ms\n", depth, tag,
-          prf_utime() - start_time);
+
+  fprintf(cfg->out, "%d:%s\tfinished in %lf ms\n", depth, tag,
+          prf_timediff(start_time, prf_utime()));
 
   return 0;
 }
