@@ -1,4 +1,4 @@
-NAME="prf"
+NAME="prfmon"
 
 workspace (NAME)
    configurations { "Debug", "Release" }

@@ -1,4 +1,4 @@
-# prf
+# prfmon
 
 A performance measuring tool 
 
