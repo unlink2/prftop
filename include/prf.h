@@ -1,5 +1,5 @@
-#ifndef prfH__
-#define prfH__
+#ifndef PRF_H__
+#define PRF_H__
 
 #include <stddef.h>
 #include <stdio.h>

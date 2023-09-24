@@ -65,7 +65,7 @@ void prf_args_parse(int argc, char **argv) {
     exitcode = 1;
     goto exit;
   }
-
+  return;
 exit:
   prf_args_free();
   exit(exitcode); // NOLINT
@@ -95,7 +95,6 @@ int main(int argc, char **argv) {
   cfg.in = stdin;
   cfg.out = stdout;
   cfg.echo = !noecho->count;
-
   int res = prf_main(&cfg);
 
   prf_args_free();
