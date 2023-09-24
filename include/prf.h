@@ -4,8 +4,8 @@
 #include <stddef.h>
 #include <stdio.h>
 
-#define PRF_START_TAG "prfmon-start"
-#define PRF_END_TAG "prfmon-end"
+#define PRF_START_TAG "prftop-start"
+#define PRF_END_TAG "prftop-end"
 
 struct prf_config {
   _Bool verbose;

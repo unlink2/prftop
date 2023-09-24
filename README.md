@@ -1,4 +1,4 @@
-# prfmon
+# prftop
 
 A performance measuring tool 
 

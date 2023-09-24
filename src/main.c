@@ -34,7 +34,7 @@ void prf_args_parse(int argc, char **argv) {
   void *argtable[] = prf_argtable;
 
   // output params
-  char progname[] = "prfmon";
+  char progname[] = "prftop";
   char short_desc[] = "";
 
   // version info
